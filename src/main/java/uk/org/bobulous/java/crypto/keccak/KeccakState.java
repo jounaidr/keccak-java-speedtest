@@ -165,13 +165,13 @@ abstract class KeccakState {
 		assert outputLengthInBits > 0;
 		byte[] output = createOutputArray(outputLengthInBits);
 		int writeLength = Math.min(bitrate, outputLengthInBits);
-		squeezeBitsFromState(output, 0, writeLength);
-		for (int outputBitIndex = bitrate; outputBitIndex < outputLengthInBits;
-				outputBitIndex += bitrate) {
-			permute();
-			writeLength = Math.min(bitrate, outputLengthInBits - outputBitIndex);
-			squeezeBitsFromState(output, outputBitIndex, writeLength);
-		}
+		squeezeBitsFromState(output, 0, 1600); //TODO: HACKED RATE HERE SET TO 1600
+//		for (int outputBitIndex = bitrate; outputBitIndex < outputLengthInBits;
+//				outputBitIndex += bitrate) {
+//			permute();
+//			writeLength = Math.min(bitrate, outputLengthInBits - outputBitIndex);
+//			squeezeBitsFromState(output, outputBitIndex, writeLength);
+//		}
 		return output;
 	}
 

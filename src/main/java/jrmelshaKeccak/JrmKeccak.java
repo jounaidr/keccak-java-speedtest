@@ -302,7 +302,7 @@ public class JrmKeccak {
             }
         }
 
-        int rateSizeWords = rateSizeBits >>> 6;
+        int rateSizeWords = 1600; //TODO: HACKED RATE HERE SET TO 1600
         int rateWords = rateBytes >>> 3;
 
         int outWords = outBytes >>> 3;
