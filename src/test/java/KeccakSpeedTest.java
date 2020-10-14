@@ -1,4 +1,8 @@
+import BobulousKeccak.BobulousKeccak;
+import jrmelshaKeccak.JrmKeccak;
+import org.bouncycastle.util.encoders.Hex;
 import org.junit.jupiter.api.Test;
+import uk.org.bobulous.java.crypto.keccak.KeccakSponge;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,12 +26,46 @@ class KeccakSpeedTest {
 
     @Test
     public void bobulousKeccakSpeedTest(){
+        long totalTime = 0;
+        KeccakSponge spongeFunction = new KeccakSponge(1088, 512, "", 1600);
 
+        for (int i = 0; i < inputData.size(); i++) {
+            for(int x = 0; x < 1000000; x++){ //calculate each hash 1,000,000 times each (5,000,000 in total)
+                long startTime = System.currentTimeMillis(); //start timer
+                //BobulousKeccak keccak = new BobulousKeccak(inputData.get(i).getBytes());
+                //keccak.returnHash();
+
+                spongeFunction.apply(inputData.get(i).getBytes().length * 8, inputData.get(i).getBytes());
+                //assertEquals(validHashes.get(i),new String(Hex.encode(keccak.returnHash())));
+                long endTime = System.currentTimeMillis();
+
+                totalTime = totalTime + (endTime - startTime); //end timer
+            }
+        }
+        System.out.println("Total time after 5,000,000 hashes for bobulousKeccak is: " + (totalTime) + " milliseconds");
+        //TEST TIMES: 10055 10095 10066 9972 10119
+        //CPU USAGE: 17% 18% 17% 17% 18%
     }
 
     @Test
     public void jrmKeccakSpeedTest(){
+        long totalTime = 0;
 
+        for (int i = 0; i < inputData.size(); i++) {
+            for(int x = 0; x < 1000000; x++){ //calculate each hash 1,000,000 times each (5,000,000 in total)
+                long startTime = System.currentTimeMillis(); //start timer
+                JrmKeccak jrmKeccak = new JrmKeccak(512);
+                jrmKeccak.update(inputData.get(i).getBytes());
+                jrmKeccak.digestArray(200);
+                //assertEquals(validHashes.get(i),new String(Hex.encode(jrmKeccak.digestArray(200))));
+                long endTime = System.currentTimeMillis();
+
+                totalTime = totalTime + (endTime - startTime); //end timer
+            }
+        }
+        System.out.println("Total time after 5,000,000 hashes for jrmKeccak is: " + (totalTime) + " milliseconds");
+        //TEST TIMES: 2497 2499 2506 2474 2525
+        //CPU USAGE: 18% 18% 17% 17% 18%
     }
 
 }
