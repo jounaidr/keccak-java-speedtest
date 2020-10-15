@@ -4,7 +4,7 @@ As described in the [CryptoNote standards](https://cryptonote.org/cns/cns008.txt
 The produced hash is used in the first step of the CryptoNight algorithm.
 
 Please note this is a sandbox style repo for the purposes of testing and learning different Java keccak implementations, 
-therefore the solutions provided here are very 'hacky', and the code/repo structure is very messy, please refer to **[JAVA-CRYPTONIGHT-REPO-TO-DO!!!]**
+therefore the solutions provided here are very 'hacky', and the code/repo structure is very messy, please refer to [JCryptoNight](https://github.com/jounaidr/JCryptoNight)
 for the finished and optimised solution.
 
 ---
@@ -36,7 +36,7 @@ The results are as follows:
 |Last commit (as of 14/10/2020)<br>was at: Jun 10, 2017|Last commit (as of 14/10/2020)<br>was at: Jan 12, 2020|
 | |Single class solution<br>will be much easier to<br>implement and optimise|
 
-For the algorithm **[JAVA-CRYPTONIGHT-REPO-TO-DO!!!]** I wish to implement, I believe jrmelsha's solution to be the best solution for the reasons stated above.
+For the [algorithm](https://github.com/jounaidr/JCryptoNight) I wish to implement, I believe jrmelsha's solution to be the best solution for the reasons stated above.
 
 ---
 
