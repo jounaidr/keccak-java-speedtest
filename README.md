@@ -42,7 +42,7 @@ For the algorithm **[JAVA-CRYPTONIGHT-REPO-TO-DO!!!]** I wish to implement, I be
 
 ### Acknowledgments
 
-I attempted to also 'hack' the following algorithms, however (for whatever reason) I found their solutions not worth testing and implementing...
+I attempted to also 'hack' the following algorithms, however (for specific reasons) I found their solutions not worth testing and implementing...
 
 - [KeccakJ](https://github.com/aelstad/keccakj)
 - [jeok70's solution](https://gist.github.com/jeok70/ff62b90e703a054d4df4)
