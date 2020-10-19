@@ -49,7 +49,7 @@ public class KeccakRunner {
         //25
         //458e4ddd8fd7a4c55cf2ab5651d1b0de4e3bb51bba675a509b
 
-        JrmKeccak jrmKeccak = new JrmKeccak(512);
+        JrmKeccak jrmKeccak = new JrmKeccak();
 
         jrmKeccak.update(testHexMessage);
 

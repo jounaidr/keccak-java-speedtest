@@ -52,12 +52,12 @@ class KeccakSpeedTest {
         long totalTime = 0;
 
         for (int i = 0; i < inputData.size(); i++) {
-            for(int x = 0; x < 1000000; x++){ //calculate each hash 1,000,000 times each (5,000,000 in total)
+            for(int x = 0; x < 1; x++){ //calculate each hash 1,000,000 times each (5,000,000 in total)
                 long startTime = System.currentTimeMillis(); //start timer
-                JrmKeccak jrmKeccak = new JrmKeccak(512);
+                JrmKeccak jrmKeccak = new JrmKeccak();
                 jrmKeccak.update(inputData.get(i).getBytes());
-                jrmKeccak.digestArray(200);
-                //assertEquals(validHashes.get(i),new String(Hex.encode(jrmKeccak.digestArray(200))));
+                byte[] out = jrmKeccak.digestArray(200);
+                assertEquals(validHashes.get(i),new String(Hex.encode(out)));
                 long endTime = System.currentTimeMillis();
 
                 totalTime = totalTime + (endTime - startTime); //end timer

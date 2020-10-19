@@ -31,17 +31,27 @@ public class JrmKeccak {
     private int rateBits;
     private boolean padded;
 
-    public JrmKeccak(int digestSizeBits) {
-        reset(digestSizeBits);
+    public JrmKeccak() {
+        for (int i = 0; i < MAX_STATE_SIZE_WORDS; ++i)
+            state[i] = 0;
+        rateBits = 0;
+
+        this.rateSizeBits = 1088;
+        this.digestSizeBits = 512;
+        padded = false;
     }
 
-    public JrmKeccak(JrmKeccak other) {
-        System.arraycopy(other.state, 0, state, 0, other.state.length);
-        rateBits = other.rateBits;
-        rateSizeBits = other.rateSizeBits;
-        digestSizeBits = other.digestSizeBits;
-        padded = other.padded;
-    }
+//    public JrmKeccak(int digestSizeBits) {
+//        reset(digestSizeBits);
+//    }
+
+//    public JrmKeccak(JrmKeccak other) {
+//        System.arraycopy(other.state, 0, state, 0, other.state.length);
+//        rateBits = other.rateBits;
+//        rateSizeBits = other.rateSizeBits;
+//        digestSizeBits = other.digestSizeBits;
+//        padded = other.padded;
+//    }
 
     @Override
     public String toString() {
@@ -56,44 +66,44 @@ public class JrmKeccak {
         return digestSizeBits >>> 3;
     }
 
-    public void reset() {
-        reset(rateSizeBits, digestSizeBits);
-    }
+//    public void reset() {
+//        reset(rateSizeBits, digestSizeBits);
+//    }
 
-    protected int rateSizeBitsFor(int digestSizeBits) {
-        //@formatter:off
-        switch (digestSizeBits) {
-            case 288: return 1024;
-            case 128: return 1344;
-            case 224: return 1152;
-            case 256: return 1088;
-            case 384: return  832;
-            case 512: return  1088;
-            default: throw new IllegalArgumentException("Invalid digestSizeBits: " + digestSizeBits + " ⊄ { 128, 224, 256, 288, 384, 512 }");
-        }
-        //@formatter:on
+//    protected int rateSizeBitsFor(int digestSizeBits) {
+//        //@formatter:off
+//        switch (digestSizeBits) {
+//            case 288: return 1024;
+//            case 128: return 1344;
+//            case 224: return 1152;
+//            case 256: return 1088;
+//            case 384: return  832;
+//            case 512: return  1088;
+//            default: throw new IllegalArgumentException("Invalid digestSizeBits: " + digestSizeBits + " ⊄ { 128, 224, 256, 288, 384, 512 }");
+//        }
+//        //@formatter:on
+//
+//        //return 1088;
+//    }
 
-        //return 1088;
-    }
+//    public void reset(int digestSizeBits) {
+//        reset(rateSizeBitsFor(digestSizeBits), digestSizeBits);
+//    }
 
-    public void reset(int digestSizeBits) {
-        reset(rateSizeBitsFor(digestSizeBits), digestSizeBits);
-    }
-
-    protected void reset(int rateSizebits, int digestSizeBits) {
-//        if (rateSizebits + digestSizeBits * 2 != MAX_STATE_SIZE)
-//            throw new IllegalArgumentException("Invalid rateSizebits + digestSizeBits * 2: " + rateSizebits + " + " + digestSizeBits + " * 2 != " + MAX_STATE_SIZE);
-//        if (rateSizebits <= 0 || (rateSizebits & 0x3f) > 0)
-//            throw new IllegalArgumentException("Invalid rateSizebits: " + rateSizebits);
-
-        for (int i = 0; i < MAX_STATE_SIZE_WORDS; ++i)
-            state[i] = 0;
-        rateBits = 0;
-
-        rateSizeBits = rateSizebits;
-        this.digestSizeBits = digestSizeBits;
-        padded = false;
-    }
+//    protected void reset(int rateSizebits, int digestSizeBits) {
+////        if (rateSizebits + digestSizeBits * 2 != MAX_STATE_SIZE)
+////            throw new IllegalArgumentException("Invalid rateSizebits + digestSizeBits * 2: " + rateSizebits + " + " + digestSizeBits + " * 2 != " + MAX_STATE_SIZE);
+////        if (rateSizebits <= 0 || (rateSizebits & 0x3f) > 0)
+////            throw new IllegalArgumentException("Invalid rateSizebits: " + rateSizebits);
+//
+//        for (int i = 0; i < MAX_STATE_SIZE_WORDS; ++i)
+//            state[i] = 0;
+//        rateBits = 0;
+//
+//        rateSizeBits = rateSizebits;
+//        this.digestSizeBits = digestSizeBits;
+//        padded = false;
+//    }
 
     public void update(byte in) {
         updateBits(in & 0xff, 8);
@@ -230,20 +240,20 @@ public class JrmKeccak {
         this.rateBits = rateBits + inBits;
     }
 
-    public ByteBuffer digest() {
-        return digest(digestSize());
-    }
-
-    public ByteBuffer digest(int outSize) {
-        return digest(outSize, false);
-    }
-
-    public ByteBuffer digest(int outSize, boolean direct) {
-        ByteBuffer buffer = direct ? ByteBuffer.allocateDirect(outSize) : ByteBuffer.allocate(outSize);
-        digest(buffer);
-        buffer.flip();
-        return buffer;
-    }
+//    public ByteBuffer digest() {
+//        return digest(digestSize());
+//    }
+//
+//    public ByteBuffer digest(int outSize) {
+//        return digest(outSize, false);
+//    }
+//
+//    public ByteBuffer digest(int outSize, boolean direct) {
+//        ByteBuffer buffer = direct ? ByteBuffer.allocateDirect(outSize) : ByteBuffer.allocate(outSize);
+//        digest(buffer);
+//        buffer.flip();
+//        return buffer;
+//    }
 
     public byte[] digestArray() {
         return digestArray(digestSize());
@@ -255,9 +265,9 @@ public class JrmKeccak {
         return array;
     }
 
-    public void digest(byte[] out) {
-        digest(ByteBuffer.wrap(out));
-    }
+//    public void digest(byte[] out) {
+//        digest(ByteBuffer.wrap(out));
+//    }
 
     public void digest(byte[] out, int offset, int length) {
         digest(ByteBuffer.wrap(out, offset, length));
@@ -302,7 +312,7 @@ public class JrmKeccak {
             }
         }
 
-        int rateSizeWords = 1600; //TODO: HACKED RATE HERE SET TO 1600
+        int rateSizeWords = MAX_STATE_SIZE; //TODO: HACKED RATE HERE SET TO 1600
         int rateWords = rateBytes >>> 3;
 
         int outWords = outBytes >>> 3;
@@ -335,18 +345,18 @@ public class JrmKeccak {
             }
         }
 
-        if (rateWords >= rateSizeWords) {
-            squeeze();
-            rateWords = 0;
-        }
-        long w = state[rateWords];
-        outBytes <<= 3;
-        int i = 0;
-        do {
-            out.put((byte) (w >>> i));
-            i += 8;
-        } while (i < outBytes);
-        this.rateBits = (rateWords << 6) | outBytes;
+//        if (rateWords >= rateSizeWords) {
+//            squeeze();
+//            rateWords = 0;
+//        }
+//        long w = state[rateWords];
+//        outBytes <<= 3;
+//        int i = 0;
+//        do {
+//            out.put((byte) (w >>> i));
+//            i += 8;
+//        } while (i < outBytes);
+//        this.rateBits = (rateWords << 6) | outBytes;
     }
 
     protected void squeeze() {
